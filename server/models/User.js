@@ -18,10 +18,6 @@ const User = new mongoose.Schema(
             required: true,
         },
         refresh_token: String,
-        ResetPasswordHash: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "ResetPasswordHash"
-        },
     },
     {
         timestamps: true
