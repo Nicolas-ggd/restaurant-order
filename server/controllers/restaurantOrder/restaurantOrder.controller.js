@@ -11,7 +11,8 @@ const CreateOrder = async (req, res) => {
                     orderName: orderDetails.items[0].orderName,
                     orderTime: orderDetails.items[0].orderTime,
                     price: orderDetails.items[0].orderPrice,
-                    quantity: orderDetails.items[0].orderQuantity
+                    quantity: orderDetails.items[0].orderQuantity,
+                    orderRecipes: orderDetails.items[0].orderRecipies
                 }],
                 totalPrice: orderDetails.totalPrice
             }

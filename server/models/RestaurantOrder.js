@@ -17,6 +17,10 @@ const ItemSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    orderRecipes: {
+        type: [String],
+        required: true,
+    },
 });
 
 const RestaurantOrder = new mongoose.Schema({
