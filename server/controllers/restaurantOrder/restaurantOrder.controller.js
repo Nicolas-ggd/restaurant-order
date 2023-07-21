@@ -65,7 +65,25 @@ const findOrder = async (req, res) => {
         const orderFind = await Order.find({
             "items.orderName": { $regex: orderName, $options: "i" }
         })
+        console.log(orderFind)
+        return res.status(200).json(orderFind);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Can't find order" });
+    }
+};
 
+const getOneOrder = async (req, res) => {
+    const orderId = req.query.orderId;
+
+    try {
+        const orderFind = await Order.findById(orderId);
+
+        if (!orderFind) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+
+        console.log(orderFind);
         return res.status(200).json(orderFind);
     } catch (error) {
         console.log(error);
@@ -77,5 +95,6 @@ module.exports = {
     CreateOrder,
     getOrders,
     deleteOrder,
-    findOrder
+    findOrder,
+    getOneOrder
 };
