@@ -23,12 +23,14 @@ interface Order {
 export const Recipes: React.FC = () => {
   const Recipies = useParams<{ id: string }>();
   const [isOrder, setIsOrder] = useState<Order[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setIsLoading(true);
     if (Recipies?.id) {
       const orderRecipies = async () => {
         await axios
-          .get("http://localhost:8000/order/find-order", {
+          .get("http://localhost:8000/order/get-one-order", {
             params: {
               orderId: Recipies?.id,
             },
@@ -36,6 +38,7 @@ export const Recipes: React.FC = () => {
           .then((res) => {
             const data = res.data;
             setIsOrder([data]);
+            setIsLoading(false);
           });
       };
 
@@ -48,17 +51,17 @@ export const Recipes: React.FC = () => {
       <Header />
       <div className="w-full h-screen">
         <div className="flex items-center justify-center w-full h-screen">
-          {isOrder ? (
+          {!isLoading &&
             isOrder.map((order, index) => {
               return order?.items?.map((item, subIndex) => (
                 <div
                   key={`${index}-${subIndex}`}
                   className=" p-4 text-center transition duration-300 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
                 >
-                    <div className="flex justify-center items-center">
-                        <div className="rounded-xl bg-green-500 w-3 h-3 mx-2"></div>
-                        <p className="dark:text-white">Your order is active</p>
-                    </div>
+                  <div className="flex justify-center items-center">
+                    <div className="rounded-xl bg-green-500 w-3 h-3 mx-2"></div>
+                    <p className="dark:text-white">Your order is active</p>
+                  </div>
                   <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
                     {item?.orderName}
                   </h5>
@@ -86,10 +89,8 @@ export const Recipes: React.FC = () => {
                   </div>
                 </div>
               ));
-            })
-          ) : (
-            <span className="dark:text-white">Loading...</span>
-          )}
+            })}
+          {isLoading && <span className="dark:text-white">Loading...</span>}
         </div>
       </div>
     </div>

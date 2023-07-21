@@ -24,17 +24,23 @@ interface Order {
 export const Restaurant: React.FC = () => {
   const [isOrder, setIsOrder] = useState<Order[]>([]);
   const [isSearch, setIsSearch] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const userId = localStorage.getItem("userId");
 
   const userOrders = async () => {
+    setIsLoading(true);
     try {
-      const res = await axios.get("http://localhost:8000/order/get-order", {
-        params: {
-          userId: userId,
-        },
-      });
-      const data = res.data;
-      setIsOrder(data);
+      await axios
+        .get("http://localhost:8000/order/get-order", {
+          params: {
+            userId: userId,
+          },
+        })
+        .then((res) => {
+          const data = res.data;
+          setIsOrder(data);
+          setIsLoading(false);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +83,7 @@ export const Restaurant: React.FC = () => {
     if (isSearch.trim().length > 0) {
       searchOrder();
     } else {
-      userOrders()
+      userOrders();
     }
   }, [isSearch]);
 
@@ -96,7 +102,7 @@ export const Restaurant: React.FC = () => {
 
         <div className="w-full px-5 sm:px-10 h-full transition duration-300 bg-white py-10 dark:bg-gray-900">
           <div className="flex flex-wrap justify-center">
-            {isOrder ? (
+            {!isLoading &&
               isOrder?.map((order, index) => {
                 return order.items.map((item, itemIndex) => (
                   <div
@@ -104,7 +110,7 @@ export const Restaurant: React.FC = () => {
                     style={{ width: "100%", maxWidth: "320px" }}
                     className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4 relative"
                   >
-                    <div className="max-w-md h-100 m-auto p-6 hover:scale-110 cursor-pointer transition duration-300 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div style={{height: "400px"}} className="max-w-md h-100 m-auto p-6 hover:scale-110 cursor-pointer transition duration-300 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                       <div className="w-full flex justify-end">
                         <DeleteIcon
                           onClick={() => deleteOrder(order?._id)}
@@ -138,10 +144,9 @@ export const Restaurant: React.FC = () => {
                     </div>
                   </div>
                 ));
-              })
-            ) : (
-              <span className="dark:text-white">Loading...</span>
-            )}
+              })}
+
+            {isLoading && <span className="dark:text-white">Loading...</span>}
           </div>
         </div>
       </div>

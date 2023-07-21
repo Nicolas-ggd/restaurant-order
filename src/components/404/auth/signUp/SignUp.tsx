@@ -61,10 +61,10 @@ export const SignUp: React.FC<SignUpProps> = ({ closeSignUp }) => {
   };
 
   return (
-    <section className="bg-grey-50 transiton duration-300 dark:bg-gray-800">
+    <section className="bg-grey-50 transiton duration-300 dark:bg-gray-900">
       {!isSend && !isSuccessSend && (
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <div className="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-700">
+          <div className="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8 text-gray-900">
               <h1 className="text-xl font-bold leading-tight dark:text-white tracking-tight md:text-2xl">
                 Create an account
@@ -88,7 +88,7 @@ export const SignUp: React.FC<SignUpProps> = ({ closeSignUp }) => {
                     type="name"
                     name="name"
                     id="name"
-                    className="bg-gray-50 border border-gray-300 dark:bg-gray-700 dark:text-white text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 outline-none"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
                     placeholder="your name"
                     onChange={(e) => {
                       setSignUpData((prevSendData) => ({
@@ -119,7 +119,7 @@ export const SignUp: React.FC<SignUpProps> = ({ closeSignUp }) => {
                     type="email"
                     name="email"
                     id="email"
-                    className="bg-gray-50 dark:bg-gray-700 dark:text-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 outline-none"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
                     placeholder="name@company.com"
                     onChange={(e) => {
                       setSignUpData((prevSendData) => ({
@@ -153,7 +153,7 @@ export const SignUp: React.FC<SignUpProps> = ({ closeSignUp }) => {
                     name="password"
                     id="password"
                     placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 dark:bg-gray-700 dark:text-white text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 outline-none"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
                     onChange={(e) => {
                       setSignUpData((prevSendData) => ({
                         ...prevSendData,
@@ -192,7 +192,7 @@ export const SignUp: React.FC<SignUpProps> = ({ closeSignUp }) => {
                     type="password"
                     name="confirmedPassword"
                     placeholder="••••••••"
-                    className="relative bg-gray-50 border border-gray-300 dark:bg-gray-700 dark:text-white text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 outline-none"
+                    className="relative bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
                     onChange={(e) => {
                       setSignUpData((prevSendData) => ({
                         ...prevSendData,
