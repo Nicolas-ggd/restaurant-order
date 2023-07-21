@@ -11,6 +11,7 @@ const verifyJWT = require('./middleware/verifyJWT');
 const register = require('./controllers/register/register.routes');
 const userAuth = require('./controllers/auth/auth.routes');
 const userLogOut = require('./controllers/logout/logout.routes');
+const restaurantOrder = require('./controllers/restaurantOrder/restaurantOrder.routes')
 
 const app = express();
 dotenv.config();
@@ -24,6 +25,7 @@ app.options('*', cors())
 app.use('/register', register);
 app.use('/auth', userAuth);
 app.use('/logout', userLogOut);
+app.use('/order', restaurantOrder);
 
 app.use(verifyJWT);
 app.use(notFound);
