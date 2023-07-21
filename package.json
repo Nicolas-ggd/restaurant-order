@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cano": "nodemon app.js"
+    "cano": "nodemon app.js",
+    "build": "npm install && npm run build:server",
+    "build:server": "echo 'No build step needed for JavaScript projects'"
   },
   "keywords": [],
   "author": "",
