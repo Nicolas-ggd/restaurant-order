@@ -47,22 +47,35 @@ const getOrders = async (req, res) => {
 
 const deleteOrder = async (req, res) => {
     const { orderId } = req.body;
-    console.log(orderId);
-  
-    try {
-      const orderDeleted = await Order.findOneAndDelete({ _id: orderId });
-      console.log(orderDeleted);
-  
-      return res.status(200).json(orderDeleted);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: "Can't delete order" });
-    }
-  };
 
+    try {
+        const orderDeleted = await Order.findOneAndDelete({ _id: orderId });
+
+        return res.status(200).json(orderDeleted);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Can't delete order" });
+    }
+};
+
+const findOrder = async (req, res) => {
+    const orderName = req.query.orderName;
+
+    try {
+        const orderFind = await Order.find({
+            "items.orderName": { $regex: orderName, $options: "i" }
+        })
+
+        return res.status(200).json(orderFind);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Can't find order" });
+    }
+};
 
 module.exports = {
     CreateOrder,
     getOrders,
-    deleteOrder
+    deleteOrder,
+    findOrder
 };
