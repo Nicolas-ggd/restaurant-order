@@ -1,10 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
+import React, { FormEvent } from "react";
 import axios from "axios";
 import { Switcher } from "../../utils/Switcher";
 
-export const Header = () => {
+interface HeaderProps {
+  setIsSearch: (value: string) => void;
+  isSearch: string;
+}
+
+export const Header: React.FC<HeaderProps> = ({ isSearch, setIsSearch }) => {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
+
+  const searchOrder = (e: FormEvent<HTMLInputElement>) => {
+    setIsSearch(e.currentTarget.value);
+  }
+
+  const sendSearch = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSearch("");
+  } 
 
   const userLogOut = async () => {
     await axios
@@ -23,12 +38,45 @@ export const Header = () => {
       style={{ position: "fixed", width: "100%", top: 0, zIndex: 999 }}
     >
       <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-        <Link to="/country" className="flex items-center">
+        <Link to="/restaurant" className="flex items-center">
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
             Home
           </span>
         </Link>
         <div className="flex items-center lg:order-2">
+          <form onSubmit={sendSearch} className="flex items-center">
+            <label htmlFor="voice-search" className="sr-only">
+              Search
+            </label>
+            <div className="relative w-full">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 21 21"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M11.15 5.6h.01m3.337 1.913h.01m-6.979 0h.01M5.541 11h.01M15 15h2.706a1.957 1.957 0 0 0 1.883-1.325A9 9 0 1 0 2.043 11.89 9.1 9.1 0 0 0 7.2 19.1a8.62 8.62 0 0 0 3.769.9A2.013 2.013 0 0 0 13 18v-.857A2.034 2.034 0 0 1 15 15Z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="voice-search"
+                className="bg-gray-50 outline-none transition duration-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Search Orders..."
+                value={isSearch}
+                onChange={searchOrder}
+                required
+              />
+            </div>
+          </form>
           <a
             onClick={userLogOut}
             className="block mx-5 pr-5 ml-5 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer"

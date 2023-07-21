@@ -13,9 +13,7 @@ interface SignUpData {
   confirmPassword: string;
 }
 
-export const SignUp: React.FC<SignUpProps> = ({
-  closeSignUp,
-}) => {
+export const SignUp: React.FC<SignUpProps> = ({ closeSignUp }) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [isSend, setIsSend] = useState<boolean>(false);
@@ -55,7 +53,7 @@ export const SignUp: React.FC<SignUpProps> = ({
 
       setIsSend(false);
       setIsSuccessSend(true);
-      navigate('/');
+      navigate("/");
     } catch (error) {
       console.error(error);
       setIsSend(false);
@@ -152,7 +150,7 @@ export const SignUp: React.FC<SignUpProps> = ({
                           : "",
                     }}
                     type="password"
-                    name="password" 
+                    name="password"
                     id="password"
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 dark:bg-gray-700 dark:text-white text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 outline-none"
@@ -243,8 +241,7 @@ export const SignUp: React.FC<SignUpProps> = ({
                   </span>
                 )}
                 <button
-                onClick={submitSignUpData}
-                  type="button"
+                  type="submit"
                   className="w-full text-white transition dark:text-white delay-50 border-none bg-sky-400 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   Create an account
@@ -284,9 +281,7 @@ export const SignUp: React.FC<SignUpProps> = ({
               />
             </svg>
             <span className="sr-only">Loading...</span>
-            <h2 className="p-4">
-              You are succesfuly registered.
-            </h2>
+            <h2 className="p-4">You are succesfuly registered.</h2>
           </div>
         </div>
       )}
