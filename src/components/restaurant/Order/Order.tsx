@@ -17,6 +17,8 @@ const initialOrderState = {
 
 export const Order = () => {
   const [isOrder, setIsOrder] = useState<Order>(initialOrderState);
+  const [isRecipes, setIsRecipes] = useState<string>("");
+  const [orderRecipies, setOrderRecipies] = useState<string[]>([]);
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
 
@@ -51,14 +53,30 @@ export const Order = () => {
               orderTime: orderTime,
               orderPrice: isOrder?.orderPrice,
               orderQuantity: isOrder?.orderQuantity,
+              orderRecipies: orderRecipies
             },
           ],
           totalPrice: isOrder?.orderPrice * isOrder?.orderQuantity,
         },
       })
       .then(() => {
-        navigate('/restaurant');
+        navigate("/restaurant");
       });
+  };
+
+  const handleRecipies = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsRecipes(e.target.value);
+  };
+
+  const addRecipies = async (e: FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (isRecipes.trim() === "") {
+      return;
+    }
+
+    setOrderRecipies((prevRecipes) => [...prevRecipes, isRecipes]);
+    setIsRecipes("");
   };
 
   return (
@@ -87,6 +105,38 @@ export const Order = () => {
                   value={isOrder.orderName}
                   onChange={handleInputChange}
                 />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="orderName"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Recipes
+                </label>
+                <div className="flex">
+                  <input
+                    type="text"
+                    name="Recipes"
+                    id="Recipes"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
+                    placeholder="Recipes..."
+                    required
+                    value={isRecipes}
+                    onChange={handleRecipies}
+                  />
+                  <button
+                    onClick={addRecipies}
+                    type="button"
+                    className="mx-2 transition delay-50 border-none text-white bg-sky-400 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 outline-none"
+                  >
+                    Add
+                  </button>
+                </div>
+
+                <span className="text-dark dark:text-white py-2">
+                  current recipes: {orderRecipies.join(", ")}
+                </span>
               </div>
 
               <div>
@@ -127,7 +177,9 @@ export const Order = () => {
                 />
               </div>
 
-              <span className="py-2 text-dark dark:text-white">Total payable:{isOrder?.orderPrice * isOrder?.orderQuantity}</span>
+              <span className="py-2 text-dark dark:text-white">
+                Total payable:{isOrder?.orderPrice * isOrder?.orderQuantity}
+              </span>
 
               <button
                 onClick={sendOrder}
@@ -136,7 +188,6 @@ export const Order = () => {
               >
                 Order
               </button>
-
             </form>
           </div>
         </div>

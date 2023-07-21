@@ -12,10 +12,11 @@ interface OrderItem {
   price: number;
   quantity: number;
   _id: string;
+  orderRecipes: array;
 }
 
 interface Order {
-  totalPrice: number,
+  totalPrice: number;
   _id: string;
   items: OrderItem[];
 }
@@ -33,6 +34,7 @@ export const Restaurant: React.FC = () => {
       })
       .then((res) => {
         const data = res.data;
+        console.log(data, "data order");
         setIsOrder(data);
       });
   };
@@ -42,10 +44,10 @@ export const Restaurant: React.FC = () => {
   }, [userId]);
 
   const deleteOrder = async (orderId: string) => {
-    console.log(orderId)
+    console.log(orderId);
     await axios
       .post("http://localhost:8000/order/delete-order", {
-          orderId: orderId,
+        orderId: orderId,
       })
       .then(() => {
         userOrders();
@@ -74,7 +76,7 @@ export const Restaurant: React.FC = () => {
                   style={{ width: "100%", maxWidth: "320px" }}
                   className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4 relative"
                 >
-                  <div className="max-w-md h-80 m-auto p-6 hover:scale-110 cursor-pointer transition duration-300 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                  <div className="max-w-md h-100 m-auto p-6 hover:scale-110 cursor-pointer transition duration-300 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <div className="w-full flex justify-end">
                       <DeleteIcon
                         onClick={() => deleteOrder(order?._id)}
@@ -88,6 +90,9 @@ export const Restaurant: React.FC = () => {
                         </h5>
                       </div>
                     </div>
+                      <p className="flex font-xs flex-wrap my-5 dark:text-white px-3">
+                        Recipes: {item?.orderRecipes.join(", ")}
+                      </p>
                     <p className="flex font-sm flex-wrap my-5 dark:text-white px-3">
                       Your order will be ready: {item?.orderTime}min
                     </p>
