@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { useEffect } from 'react';
 
 interface SignInProps {
   closeSignIn: () => void;
@@ -18,6 +19,7 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
   });
   const [searchVerifyCode] = useSearchParams();
   const searchParamsCode = searchVerifyCode.get("verifyCode");
+  const accessToken = localStorage.getItem("access_token");
 
   const submitSignInData = async (event: FormEvent<HTMLFormElement>) => {
     if (signInData?.email?.length === 0 || signInData?.password?.length === 0) {
@@ -41,6 +43,12 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
       console.log(errorMessage);
     }
   };
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate('/restaurant');
+    }
+  }, []);
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 transiton duration-300">

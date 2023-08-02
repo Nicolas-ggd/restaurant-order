@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { PrivateRoutes } from "./utils/PrivateRoute";
 import { Page404 } from "./components/404/Page404";
-import { Auth } from "./components/404/auth/Auth";
+import { Auth } from "./components/auth/Auth";
 import { Restaurant } from "./components/restaurant/Restaurant";
 import { Order } from "./components/restaurant/Order/Order";
 import { Recipes } from "./components/restaurant/Recipes/Recipes";
