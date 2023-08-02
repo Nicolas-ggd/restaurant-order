@@ -24,6 +24,7 @@ export const Recipes: React.FC = () => {
   const Recipies = useParams<{ id: string }>();
   const [isOrder, setIsOrder] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSearch, setIsSearch] = React.useState<string>('');
 
   useEffect(() => {
     setIsLoading(true);
@@ -48,7 +49,7 @@ export const Recipes: React.FC = () => {
 
   return (
     <div className="w-full h-screen dark:bg-gray-900 transition duration-300">
-      <Header />
+      <Header isSearch={isSearch} setIsSearch={setIsSearch} />
       <div className="w-full h-screen">
         <div className="flex items-center justify-center w-full h-screen">
           {!isLoading &&

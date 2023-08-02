@@ -20,6 +20,7 @@ const initialOrderState = {
 export const Order = () => {
   const [isOrder, setIsOrder] = useState<Order>(initialOrderState);
   const [isRecipes, setIsRecipes] = useState<string>("");
+  const [isSearch, setIsSearch] = useState<string>('');
   const [orderRecipies, setOrderRecipies] = useState<string[]>([]);
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
@@ -83,7 +84,7 @@ export const Order = () => {
 
   return (
     <>
-      <Header />
+      <Header isSearch={isSearch} setIsSearch={setIsSearch} />
       <div className="bg-gray-50 dark:bg-gray-900 transition duration-300 h-screen">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 h-full">
           <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">

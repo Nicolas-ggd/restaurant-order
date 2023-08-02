@@ -4,13 +4,12 @@ import { UseDarkTheme } from "./UseDarkTheme";
 
 export const Switcher = () => {
   const [colorTheme, setColorTheme] = UseDarkTheme();
-  const [darkSide, setDarkSide] = useState(
-    colorTheme === "light" ? true : false
-  );
+  const [darkSide, setDarkSide] = useState(colorTheme === "dark");
 
-  const toggleDarkMode = (checked: boolean) => {
-    setColorTheme(colorTheme);
-    setDarkSide(checked);
+  const toggleDarkMode = () => {
+    const newTheme = colorTheme === "dark" ? "light" : "dark";
+    setColorTheme(newTheme);
+    setDarkSide(newTheme === "dark");
   };
 
   return (
