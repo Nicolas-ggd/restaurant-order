@@ -31,7 +31,7 @@ export const Recipes: React.FC = () => {
     if (Recipies?.id) {
       const orderRecipies = async () => {
         await axios
-          .get("http://localhost:8000/order/get-one-order", {
+          .get(`${process.env.REACT_APP_API_URL}/order/get-one-order`, {
             params: {
               orderId: Recipies?.id,
             },

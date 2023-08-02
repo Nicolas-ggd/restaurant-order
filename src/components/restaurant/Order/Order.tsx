@@ -57,7 +57,7 @@ export const Order = () => {
     }
 
     await axios
-      .post("http://localhost:8000/order/create", {
+      .post(`${process.env.REACT_APP_API_URL}/order/create`, {
         data: {
           userId: userId,
           items: [

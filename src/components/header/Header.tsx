@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({ isSearch, setIsSearch }) => {
 
   const userLogOut = async () => {
     await axios
-      .post("http://localhost:8000/logout", {
+      .post(`${process.env.REACT_APP_API_URL}/logout`, {
         userId: userId,
       })
       .then(() => {
