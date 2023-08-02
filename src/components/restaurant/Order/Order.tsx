@@ -57,7 +57,7 @@ export const Order = () => {
     }
 
     await axios
-      .post(`${process.env.REACT_APP_API_URL}/order/create`, {
+      .post(`https://restaurant-order-4hbo.onrender.com/order/create`, {
         data: {
           userId: userId,
           items: [

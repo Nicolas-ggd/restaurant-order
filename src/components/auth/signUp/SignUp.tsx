@@ -45,7 +45,7 @@ export const SignUp: React.FC<SignUpProps> = ({ closeSignUp }) => {
     event.preventDefault();
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/register`, {
+      await axios.post(`https://restaurant-order-4hbo.onrender.com/register`, {
         name: signUpData.name,
         email: signUpData.email,
         password: signUpData.password,
