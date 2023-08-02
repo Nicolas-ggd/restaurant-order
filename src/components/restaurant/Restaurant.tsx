@@ -61,12 +61,11 @@ export const Restaurant: React.FC = () => {
   };
 
   const searchOrder = async () => {
-    const searchQuery = isSearch.trim();
 
-    if (searchQuery.length === 0) {
+    if (isSearch.trim() === "") {
       setIsOrder([]);
-      return;
     }
+
     await axios
       .get(`http://localhost:8000/order/find-order?orderName=${isSearch}`)
       .then((res) => {
@@ -80,11 +79,7 @@ export const Restaurant: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isSearch.trim().length > 0) {
       searchOrder();
-    } else {
-      userOrders();
-    }
   }, [isSearch]);
 
   return (

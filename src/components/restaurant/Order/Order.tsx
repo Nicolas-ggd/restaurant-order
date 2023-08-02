@@ -20,8 +20,9 @@ const initialOrderState = {
 export const Order = () => {
   const [isOrder, setIsOrder] = useState<Order>(initialOrderState);
   const [isRecipes, setIsRecipes] = useState<string>("");
-  const [isSearch, setIsSearch] = useState<string>('');
+  const [isSearch, setIsSearch] = useState<string>("");
   const [orderRecipies, setOrderRecipies] = useState<string[]>([]);
+  const [isError, setIsError] = useState<boolean>(false);
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
 
@@ -45,6 +46,15 @@ export const Order = () => {
     e.preventDefault();
 
     const orderTime = generateRandomNumber();
+
+    if (
+      isOrder?.orderName.length === 0 ||
+      isOrder?.orderPrice === 0 ||
+      isOrder?.orderQuantity === 0 ||
+      orderRecipies?.length === 0
+    ) {
+      return setIsError(true);
+    }
 
     await axios
       .post("http://localhost:8000/order/create", {
@@ -106,10 +116,19 @@ export const Order = () => {
                     id="orderName"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
                     placeholder="Order..."
+                    style={{
+                      borderColor:
+                        isError && isOrder?.orderName?.length === 0
+                          ? "red"
+                          : "",
+                    }}
                     required
                     value={isOrder.orderName}
                     onChange={handleInputChange}
                   />
+                  {isError && isOrder?.orderName?.length === 0 && (
+                    <span className="text-red-600">Please fill order name</span>
+                  )}
                 </div>
 
                 <div>
@@ -129,6 +148,10 @@ export const Order = () => {
                       required
                       value={isRecipes}
                       onChange={handleRecipies}
+                      style={{
+                        borderColor:
+                          isError && orderRecipies?.length === 0 ? "red" : "",
+                      }}
                     />
                     <button
                       onClick={addRecipies}
@@ -139,9 +162,16 @@ export const Order = () => {
                     </button>
                   </div>
 
-                  <span className="text-dark dark:text-white py-2">
-                    current recipes: {orderRecipies.join(", ")}
-                  </span>
+                  <div className="flex flex-col">
+                    {isError && orderRecipies?.length === 0 && (
+                      <span className="text-red-600">
+                        Please add some recipies
+                      </span>
+                    )}
+                    <span className="text-dark dark:text-white py-2">
+                      current recipes: {orderRecipies.join(", ")}
+                    </span>
+                  </div>
                 </div>
 
                 <div>
@@ -149,7 +179,7 @@ export const Order = () => {
                     htmlFor="orderPrice"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Your budget (price)
+                    Price
                   </label>
                   <input
                     type="number"
@@ -160,7 +190,16 @@ export const Order = () => {
                     required
                     value={isOrder.orderPrice}
                     onChange={handleInputChange}
+                    style={{
+                      borderColor:
+                        isError && isOrder?.orderPrice === 0 ? "red" : "",
+                    }}
                   />
+                  {isError && isOrder?.orderPrice === 0 && (
+                    <span className="text-red-600">
+                      Please specify the desired price
+                    </span>
+                  )}
                 </div>
 
                 <div>
@@ -179,7 +218,16 @@ export const Order = () => {
                     required
                     value={isOrder.orderQuantity}
                     onChange={handleInputChange}
+                    style={{
+                      borderColor:
+                        isError && isOrder?.orderQuantity === 0 ? "red" : "",
+                    }}
                   />
+                  {isError && isOrder?.orderQuantity === 0 && (
+                    <span className="text-red-600">
+                      Please specify the desired order quantity
+                    </span>
+                  )}
                 </div>
 
                 <span className="py-2 text-dark dark:text-white">
