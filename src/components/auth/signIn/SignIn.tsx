@@ -33,7 +33,6 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
         })
         .then((res) => {
           const data = res.data;
-          console.log(data, "data");
           localStorage.setItem("access_token", data?.access_token);
           localStorage.setItem("userId", data?._id);
           navigate("/restaurant");
