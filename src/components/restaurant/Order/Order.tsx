@@ -122,7 +122,6 @@ export const Order = () => {
                           ? "red"
                           : "",
                     }}
-                    required
                     value={isOrder.orderName}
                     onChange={handleInputChange}
                   />
@@ -186,7 +185,6 @@ export const Order = () => {
                     id="orderPrice"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
                     placeholder="Price"
-                    required
                     value={isOrder.orderPrice}
                     onChange={handleInputChange}
                     style={{
@@ -214,7 +212,6 @@ export const Order = () => {
                     id="orderQuantity"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
                     placeholder="Quantity"
-                    required
                     value={isOrder.orderQuantity}
                     onChange={handleInputChange}
                     style={{
