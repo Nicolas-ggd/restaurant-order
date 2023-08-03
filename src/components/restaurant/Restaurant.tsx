@@ -97,7 +97,7 @@ export const Restaurant: React.FC = () => {
 
         <div className="w-full px-5 sm:px-10 h-full transition duration-300 bg-white py-10 dark:bg-gray-900">
           <div className="flex flex-wrap justify-center">
-            {!isLoading &&
+            {!isLoading && isOrder?.length > 0 ? (
               isOrder?.map((order, index) => {
                 return order.items.map((item, itemIndex) => (
                   <div
@@ -139,7 +139,9 @@ export const Restaurant: React.FC = () => {
                     </div>
                   </div>
                 ));
-              })}
+              })): (<>
+                <h1>No order to shown</h1>
+              </>)}
 
             {isLoading && <span className="dark:text-white">Loading...</span>}
           </div>
