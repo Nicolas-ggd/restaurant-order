@@ -53,6 +53,7 @@ export const SignUp: React.FC<SignUpProps> = ({ closeSignUp }) => {
 
       setIsSend(false);
       setIsSuccessSend(true);
+      closeSignUp();
       navigate("/");
     } catch (error) {
       console.error(error);
