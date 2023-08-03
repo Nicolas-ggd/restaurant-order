@@ -42,7 +42,7 @@ export const Order = () => {
     }));
   };
 
-  const sendOrder = async (e: FormEvent<HTMLButtonElement>) => {
+  const sendOrder = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const orderTime = generateRandomNumber();
@@ -102,7 +102,7 @@ export const Order = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-gray-900 dark:text-white">
                 Create your order
               </h1>
-              <form className="space-y-4 md:space-y-6">
+              <form className="space-y-4 md:space-y-6" onSubmit={sendOrder}>
                 <div>
                   <label
                     htmlFor="orderName"
@@ -235,8 +235,7 @@ export const Order = () => {
                 </span>
 
                 <button
-                  onClick={sendOrder}
-                  type="button"
+                  type="submit"
                   className="w-full transition delay-50 border-none text-white bg-sky-400 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 outline-none"
                 >
                   Order
