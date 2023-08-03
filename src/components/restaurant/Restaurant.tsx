@@ -140,7 +140,7 @@ export const Restaurant: React.FC = () => {
                   </div>
                 ));
               })): (<>
-                <h1>No order to shown</h1>
+                <h1 className="dark:text-white">No order to shown</h1>
               </>)}
 
             {isLoading && <span className="dark:text-white">Loading...</span>}

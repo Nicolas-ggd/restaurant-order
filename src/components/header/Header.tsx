@@ -116,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({ isSearch, setIsSearch }) => {
               ></path>
             </svg>
           </button>
-          <Switcher />
+            <Switcher />
         </div>
       </div>
     </div>
