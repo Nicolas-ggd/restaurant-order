@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 interface SignInProps {
   closeSignIn: () => void;
@@ -17,26 +17,27 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
     email: "",
     password: "",
   });
-  const [searchVerifyCode] = useSearchParams();
-  const searchParamsCode = searchVerifyCode.get("verifyCode");
   const accessToken = localStorage.getItem("access_token");
 
-  const submitSignInData = async (event: FormEvent<HTMLFormElement>) => {
+  const submitSignInData = async (event: FormEvent<HTMLButtonElement>) => {
     if (signInData?.email?.length === 0 || signInData?.password?.length === 0) {
       return setIsError(true);
     }
     event.preventDefault();
 
     try {
-      const res = await axios.post(`https://restaurant-order-4hbo.onrender.com/auth`, {
-        email: signInData.email,
-        password: signInData.password,
-        verificationCode: searchParamsCode,
-      });
-      const data = res.data;
-      localStorage.setItem("access_token", data?.access_token);
-      localStorage.setItem("userId", data?._id);
-      navigate("/restaurant");
+      await axios
+        .post(`https://restaurant-order-4hbo.onrender.com/auth`, {
+          email: signInData.email,
+          password: signInData.password,
+        })
+        .then((res) => {
+          const data = res.data;
+          console.log(data, "data");
+          localStorage.setItem("access_token", data?.access_token);
+          localStorage.setItem("userId", data?._id);
+          navigate("/restaurant");
+        });
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message || "Authentication failed";
@@ -46,7 +47,7 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/restaurant');
+      navigate("/restaurant");
     }
   }, []);
 
@@ -60,7 +61,6 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
             </h1>
             <form
               className="space-y-4 md:space-y-6"
-              onSubmit={submitSignInData}
             >
               <div>
                 <label
@@ -138,7 +138,6 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
                       aria-describedby="remember"
                       type="checkbox"
                       className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-600 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-primary-300"
-                      required
                     />
                   </div>
                   <div className="ml-3 text-sm text-gray-300 text-gray-500">
@@ -153,7 +152,8 @@ export const SignIn: React.FC<SignInProps> = ({ closeSignIn }) => {
               </div>
 
               <button
-                type="submit"
+                type="button"
+                onClick={submitSignInData}
                 className="w-full transition delay-50 border-none text-white bg-sky-400 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 outline-none"
               >
                 Sign in

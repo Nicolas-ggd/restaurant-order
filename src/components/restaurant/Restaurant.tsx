@@ -31,7 +31,7 @@ export const Restaurant: React.FC = () => {
     setIsLoading(true);
     try {
       await axios
-        .get(`https://restaurant-order-4hbo.onrender.com/get-order`, {
+        .get(`https://restaurant-order-4hbo.onrender.com/order/get-order`, {
           params: {
             userId: userId,
           },
@@ -52,7 +52,7 @@ export const Restaurant: React.FC = () => {
 
   const deleteOrder = async (orderId: string) => {
     await axios
-      .post(`https://restaurant-order-4hbo.onrender.com/order/delete-order`, {
+      .post(`http://localhost:8000/order/delete-order`, {
         orderId: orderId,
       })
       .then(() => {
@@ -67,7 +67,7 @@ export const Restaurant: React.FC = () => {
     }
 
     await axios
-      .get(`https://restaurant-order-4hbo.onrender.com/order/find-order?orderName=${isSearch}`)
+      .get(`http://localhost:8000/order/find-order?orderName=${isSearch}`)
       .then((res) => {
         const data = res.data;
         setIsOrder(data.length > 0 ? data : []);
