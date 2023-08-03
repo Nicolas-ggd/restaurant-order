@@ -52,7 +52,7 @@ export const Restaurant: React.FC = () => {
 
   const deleteOrder = async (orderId: string) => {
     await axios
-      .post(`http://localhost:8000/order/delete-order`, {
+      .post(`https://restaurant-order-4hbo.onrender.com/order/delete-order`, {
         orderId: orderId,
       })
       .then(() => {
@@ -67,7 +67,7 @@ export const Restaurant: React.FC = () => {
     }
 
     await axios
-      .get(`http://localhost:8000/order/find-order?orderName=${isSearch}`)
+      .get(`https://restaurant-order-4hbo.onrender.com/order/find-order?orderName=${isSearch}`)
       .then((res) => {
         const data = res.data;
         setIsOrder(data.length > 0 ? data : []);
