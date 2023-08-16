@@ -61,13 +61,14 @@ export const Restaurant: React.FC = () => {
   };
 
   const searchOrder = async () => {
-
     if (isSearch.trim() === "") {
       setIsOrder([]);
     }
 
     await axios
-      .get(`https://restaurant-order-4hbo.onrender.com/order/find-order?orderName=${isSearch}`)
+      .get(
+        `https://restaurant-order-4hbo.onrender.com/order/find-order?orderName=${isSearch}`
+      )
       .then((res) => {
         const data = res.data;
         setIsOrder(data.length > 0 ? data : []);
@@ -79,7 +80,7 @@ export const Restaurant: React.FC = () => {
   };
 
   useEffect(() => {
-      searchOrder();
+    searchOrder();
   }, [isSearch]);
 
   return (
@@ -105,7 +106,10 @@ export const Restaurant: React.FC = () => {
                     style={{ width: "100%", maxWidth: "320px" }}
                     className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4 relative"
                   >
-                    <div style={{height: "400px"}} className="max-w-md h-100 m-auto p-6 hover:scale-110 cursor-pointer transition duration-300 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div
+                      style={{ height: "400px" }}
+                      className="max-w-md h-100 m-auto p-6 hover:scale-110 cursor-pointer transition duration-300 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                    >
                       <div className="w-full flex justify-end">
                         <DeleteIcon
                           onClick={() => deleteOrder(order?._id)}

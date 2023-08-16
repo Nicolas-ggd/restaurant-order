@@ -75,7 +75,7 @@ export const Recipes: React.FC = () => {
                     </span>
                   </div>
                   <div className="items-center justify-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                    <span className="dark:text-white bg-gray-300 p-2 rounded-xl">
+                    <span className="dark:text-white p-2 rounded-xl">
                       Order total price: {item?.price}$
                     </span>
                   </div>
